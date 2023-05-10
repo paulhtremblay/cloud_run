@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return 'Last deployed at {d}'.format(
+    return 'v1: time is  {d}'.format(
             d = datetime.datetime.now())
 
 
