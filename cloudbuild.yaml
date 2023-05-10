@@ -1,0 +1,10 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', "${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_IMAGE}:${_TAG}", '.' ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', "${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_IMAGE}:${_TAG}"]
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['run', 'deploy', $_SERVICE_NAME, '--image', "$_LOCATION-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_IMAGE}:${_TAG}", '--region', $_LOCATION, "--set-secrets", "POSTGRESS_PW_API_DEV=postgres-api-pw-dev:1"]
+images:
+  ["$_LOCATION-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_IMAGE}:${_TAG}"]
