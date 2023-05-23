@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return 'v2: time is  {d}'.format(
+    return 'v3: time is  {d}'.format(
             d = datetime.datetime.now())
 
 
